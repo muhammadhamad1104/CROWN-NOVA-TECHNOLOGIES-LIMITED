@@ -71,8 +71,7 @@
         <div class="container">
           <div class="d-grid align-form-map">
             <div class="form-inner-cont">
-              <!-- <form action="https://sendmail.w3layouts.com/submitForm" method="post" class="contact-form"> -->
-                <form onsubmit="event.preventDefault(); alert('Your message has been sent! We will contact you back soon.'); this.reset();" class="contact-form">
+              <form id="contactForm" method="POST" class="contact-form">
                 <div class="form-top-left">
                   <input type="text" name="w3lName" id="w3lName" placeholder="Name" required="">
                   <input type="email" name="w3lSender" id="w3lSender" placeholder="Email*" required="">
@@ -85,6 +84,36 @@
                   <button type="submit" class="btn btn-style btn-primary">Submit Message</button>
                 </div>
               </form>
+              <div id="customAlert" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:9999;align-items:center;justify-content:center;">
+                <div style="background:#fff;padding:32px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.2);max-width:90vw;width:350px;text-align:center;position:relative;">
+                  <span id="customAlertMsg" style="font-size:1.1rem;color:#222;"></span>
+                  <br><br>
+                  <button onclick="document.getElementById('customAlert').style.display='none'" style="background:#2563eb;color:#fff;border:none;padding:8px 24px;border-radius:6px;font-size:1rem;cursor:pointer;">OK</button>
+                </div>
+              </div>
+              <script>
+              function showCustomAlert(msg) {
+                document.getElementById('customAlertMsg').innerHTML = msg;
+                document.getElementById('customAlert').style.display = 'flex';
+              }
+              document.getElementById('contactForm').onsubmit = async function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                const res = await fetch('/sendmail', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if(result.success) {
+                  showCustomAlert('✅ Your message has been sent!<br>We will contact you back soon.');
+                  this.reset();
+                } else {
+                  showCustomAlert('❌ Failed to send message:<br>' + result.message);
+                }
+              };
+              </script>
             </div>
           </div>
         </div>
