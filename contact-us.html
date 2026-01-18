@@ -628,8 +628,16 @@
             
             icon.className = 'popup-icon ' + type;
             iconSymbol.textContent = type === 'success' ? '✓' : '✕';
-            popupTitle.textContent = title;
-            popupMessage.textContent = message;
+            popupTitle.textContent = String(title || 'Notice');
+            
+            // Ensure message is always a string
+            let displayMessage = 'An error occurred. Please try again.';
+            if (typeof message === 'string') {
+                displayMessage = message;
+            } else if (message && typeof message === 'object') {
+                displayMessage = message.error || message.message || JSON.stringify(message);
+            }
+            popupMessage.textContent = displayMessage;
             
             if (redirectUrl) {
                 popupBtn.onclick = function() {
@@ -708,6 +716,7 @@
             try {
                 const apiUrl = window.location.origin + '/api/contact';
                 console.log('Sending request to:', apiUrl);
+                console.log('Form data:', formData);
                 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -719,24 +728,41 @@
                 });
                 
                 console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers.get('content-type'));
                 
                 let result;
-                const contentType = response.headers.get('content-type');
-                if (contentType && contentType.includes('application/json')) {
-                    result = await response.json();
-                } else {
-                    const text = await response.text();
-                    console.error('Non-JSON response:', text);
-                    throw new Error('Server returned an invalid response. Please try again.');
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+                
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    console.error('Response was:', responseText);
+                    throw new Error('Server returned an invalid response. Please try again later.');
                 }
                 
-                if (response.ok) {
+                console.log('Parsed result:', result);
+                
+                if (response.ok && result.success) {
                     // Show success popup and redirect
                     showPopup('success', 'Message Sent!', 'Thank you for contacting us. We will get back to you shortly.', 'thank-you.html');
                     // Clear the form
                     document.getElementById('contactForm').reset();
                 } else {
-                    showPopup('error', 'Oops!', result.error || 'Something went wrong. Please try again or contact us directly.');
+                    // Extract error message properly
+                    let errorMessage = 'Something went wrong. Please try again or contact us directly at support@crownnovatech.com';
+                    if (result) {
+                        if (typeof result.error === 'string') {
+                            errorMessage = result.error;
+                        } else if (typeof result.message === 'string') {
+                            errorMessage = result.message;
+                        } else if (typeof result === 'string') {
+                            errorMessage = result;
+                        }
+                    }
+                    console.log('Error message to display:', errorMessage);
+                    showPopup('error', 'Oops!', errorMessage);
                 }
             } catch (error) {
                 console.error('Fetch Error:', error);
@@ -746,7 +772,7 @@
                 let errorMsg = 'Unable to send message. ';
                 if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
                     errorMsg += 'The server is not responding. Please try again later or contact us directly at support@crownnovatech.com';
-                } else if (error.message) {
+                } else if (typeof error.message === 'string' && error.message) {
                     errorMsg += error.message;
                 } else {
                     errorMsg += 'Please check your internet connection or contact us directly at support@crownnovatech.com';
