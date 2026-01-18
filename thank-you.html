@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fancybox.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/odometer.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <title>Thank You | Crown Nova Technologies Ltd</title>
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    <meta name="description" content="Thank you for contacting Crown Nova Technologies Ltd.">
+    <style>
+        .thank-you-section {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .thank-you-content {
+            max-width: 600px;
+        }
+        .thank-you-icon {
+            font-size: 80px;
+            color: #063f84;
+            margin-bottom: 30px;
+        }
+        .thank-you-title {
+            font-size: 42px;
+            color: #063f84;
+            margin-bottom: 20px;
+        }
+        .thank-you-text {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .back-home-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #063f84;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .back-home-btn:hover {
+            background: #0a4d9e;
+            color: #fff;
+        }
+        
+        /* Navbar styles */
+        .navbar .logo a img {
+            height: 75px !important;
+        }
+        
+        /* Hamburger Menu Button */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            margin-left: 20px;
+            z-index: 1001;
+        }
+        
+        .hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #063f84;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        
+        .hamburger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -7px);
+        }
+        
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 80px 30px 30px;
+            overflow-y: auto;
+        }
+        
+        .mobile-sidebar.active {
+            right: 0;
+        }
+        
+        .mobile-sidebar .sidebar-logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .mobile-sidebar .sidebar-logo img {
+            height: 75px;
+        }
+        
+        .mobile-sidebar .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-sidebar .sidebar-menu li {
+            float: none;
+            padding: 0;
+            margin-bottom: 5px;
+        }
+        
+        .mobile-sidebar .sidebar-menu li a {
+            display: block;
+            padding: 15px 20px;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-sidebar .sidebar-menu li a:hover,
+        .mobile-sidebar .sidebar-menu li a.active {
+            background: #063f84;
+            color: #fff;
+        }
+        
+        .mobile-sidebar .sidebar-contact {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .mobile-sidebar .sidebar-contact a {
+            display: block;
+            padding: 15px 20px;
+            background: #063f84;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: medium;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-sidebar .sidebar-contact a:hover {
+            background: #0a4d9e;
+        }
+        
+        .mobile-sidebar .sidebar-contact a i {
+            margin-right: 8px;
+        }
+        
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-close:hover {
+            background: #063f84;
+            color: #fff;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 991px) {
+            .hamburger-btn {
+                display: flex;
+            }
+            
+            .navbar .site-menu {
+                display: none;
+            }
+            
+            .navbar .navbar-button {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-sidebar {
+                width: 260px;
+            }
+            
+            .navbar .logo a img {
+                height: 75px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-transition"></div>
+    <aside class="side-widget">
+        <div class="inner">
+            <!-- Logo Menu Mobile -->
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="hide-mobile">
+                <div class="or">
+                    <h2 class="h2-baslik-hizmetler-2"> Contact Information </h2>
+                </div>
+                <p style="font-style: italic; color: #666; font-size: 12px; margin-bottom: 10px; z-index: index 100;;">"Beyond Technology, Beyond Boundaries"</p>
+                <div class="bosluksv"></div>
+                <div class="iconsv"><i class="flaticon-call"></i></div>
+                <address class="address">
+                    <p><a href="tel:+447432634216">+44 7432634216</a>
+                    <div class="bosluksv"></div>
+                    <div class="iconsv"><i class="flaticon-email"></i></div>
+                    <div class="email-list" style="margin-bottom: 10px;">
+                        <a href="mailto:support@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">support@crownnovatech.com</a>
+                        <a href="mailto:info@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">info@crownnovatech.com</a>
+                        <a href="mailto:ammar@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">ammar@crownnovatech.com</a>
+                    </div>
+                    <div class="bosluksv"></div>
+                    <div class="iconsv"><i class="flaticon-location"></i></div>
+                    <a href="#">66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</a>
+                    <div class="bosluksv"></div>
+                    <div class="or">
+                      <a href="#"><img src="img/facebook1.png" alt="Facebook"></a>
+                      <a href="#"><img src="img/instagram1.png" alt="Instagram"></a>
+                      <a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img src="img/icons8-linkedin-501.png" width="24" height="24" alt="LinkedIn"></a>
+                    </div>
+                    </p>
+                </address>
+            </div>
+            <div class="show-mobile">
+                <div class="site-menu">
+                    <ul class="menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us </a></li>
+                        <li><a href="services.html">Services </a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <small>© 2025 - Crown Nova Technologies Ltd</small>
+        </div>
+    </aside>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="site-menu">
+                <ul class="menueffect">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="navbar-button"> <a href="tel:+447432634216"><i class="flaticon-call iconp"></i>&nbsp;&nbsp;&nbsp;+44 7432634216</a> </div>
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-btn" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <div class="mobile-sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+        <div class="sidebar-logo">
+            <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="sidebar-contact">
+            <a href="tel:+447432634216"><i class="flaticon-call"></i> +44 7432634216</a>
+        </div>
+    </div>
+
+    <section class="thank-you-section">
+        <div class="thank-you-content">
+            <p style="font-style: italic; color: #063f84; font-size: 16px; margin-bottom: 20px;">"Beyond Technology, Beyond Boundaries"</p>
+            <div class="thank-you-icon">
+                ✓
+            </div>
+            <h1 class="thank-you-title">Thank You!</h1>
+            <p class="thank-you-text">
+                Your message has been successfully sent. We appreciate you contacting Crown Nova Technologies Ltd. 
+                Our team will review your inquiry and get back to you within 24-48 hours.
+            </p>
+            <a href="index.html" class="back-home-btn">Back to Home</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                    <p class="footer-slogan" style="font-style: italic; color: #aaa; margin-bottom: 15px; font-size: 14px;">"Beyond Technology, Beyond Boundaries"</p>
+                    <div class="footer-info wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <p><i class="flaticon-road"></i><span>66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</span></p>
+                        <p><i class="flaticon-call"></i><span>+44 7432634216</span></p>
+                        <div class="footer-emails">
+                            <p><i class="flaticon-email"></i><span>support@crownnovatech.com</span></p>
+                            <p><i class="flaticon-email"></i><span>info@crownnovatech.com</span></p>
+                            <p><i class="flaticon-email"></i><span>ammar@crownnovatech.com</span></p>
+                        </div>
+                    </div>
+                    <ul class="footer-social wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <li><a href="#"><img width="20" height="20" src="img/facebook.png" alt="Facebook"></a></li>
+                        <li><a href="#"><img width="20" height="20" src="img/instagram2.png" alt="Instagram"></a></li>
+                        <li><a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img width="20" height="20" src="img/icons8-linkedin-50.png" alt="LinkedIn"></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
+                    <h6 class="widget-title">Quick Links</h6>
+                    <ul class="footer-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                    <h6 class="widget-title">Engineering Resource</h6>
+                    <ul class="footer-menu">
+                        <li><a>Break Fix Engineers</a></li>
+                        <li><a>Server Engineers</a></li>
+                        <li><a>Network Engineers</a></li>
+                        <li><a>Wireless Engineers</a></li>
+                        <li><a>Desktop/side Engineers</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                    <h6 class="widget-title">Professional Services</h6>
+                    <ul class="footer-menu">
+                        <li><a>IMAC</a></li>
+                        <li><a>Roll out</a></li>
+                        <li><a>Relocation</a></li>
+                        <li><a>ITAD</a></li>
+                        <li><a>Reverse Logistics</a></li>
+                        <li><a>Depot Repair / Storage</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="copyright">© 2025 Crown Nova Technologies Ltd - All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div id="top" style="cursor: pointer;">
+            <img width="50" height="50" src="img/go-top.png" alt="" />
+        </div>
+
+        <!--Cursor Script-->
+        <script>
+            init_pointer({})
+        </script>
+    </footer>
+
+    <script src="js/team.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/fancybox.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/odometer.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/3d.jquery.js"></script>
+    <script src="js/pointer.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.mobile-sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+            document.querySelector('.hamburger-btn').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.mobile-sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeSidebar() {
+            document.querySelector('.mobile-sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+            document.querySelector('.hamburger-btn').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

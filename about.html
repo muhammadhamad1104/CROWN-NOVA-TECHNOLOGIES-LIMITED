@@ -1,218 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>About Us - Crown Nova Technologies Limited</title>
-  <link rel="icon" type="image/png" href="images/logo1.png">
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/animations.css">
-  <style>
-    .team-grids img {
-      width: 180px;
-      height: 340px;
-      object-fit: cover;
-      object-position: center;
-      border-radius: 15px;
-      border: none !important;
-      padding: none !important;
-    }
-    .company-logos {
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-    .company-logo {
-      height: 80px;
-      width: auto;
-      filter: grayscale(100%);
-      transition: filter 0.3s ease;
-    }
-    .company-logo:hover {
-      filter: grayscale(0%);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fancybox.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/odometer.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <title>Crown Nova Technologies Ltd | IT Solutions</title>
+    <link rel="shortcut icon" type="image/png" href="img/logo.png">
+    <meta name="description" content="Custom IT Solutions for Your Business. We are at your service with our reliable service understanding and professional team.">
+    <style>
+        /* Smaller Logo */
+        .navbar .logo a img {
+            height: 75px !important;
+        }
+        
+        /* Hamburger Menu Button */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            margin-left: 20px;
+            z-index: 1001;
+        }
+        
+        .hamburger-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #063f84;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        
+        .hamburger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -7px);
+        }
+        
+        /* Mobile Sidebar */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 80px 30px 30px;
+            overflow-y: auto;
+        }
+        
+        .mobile-sidebar.active {
+            right: 0;
+        }
+        
+        .mobile-sidebar .sidebar-logo {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .mobile-sidebar .sidebar-logo img {
+            height: 75px;
+        }
+        
+        .mobile-sidebar .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .mobile-sidebar .sidebar-menu li {
+            float: none;
+            padding: 0;
+            margin-bottom: 5px;
+        }
+        
+        .mobile-sidebar .sidebar-menu li a {
+            display: block;
+            padding: 15px 20px;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-sidebar .sidebar-menu li a:hover,
+        .mobile-sidebar .sidebar-menu li a.active {
+            background: #063f84;
+            color: #fff;
+        }
+        
+        .mobile-sidebar .sidebar-contact {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .mobile-sidebar .sidebar-contact a {
+            display: block;
+            padding: 15px 20px;
+            background: #063f84;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size:medium;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-sidebar .sidebar-contact a:hover {
+            background: #0a4d9e;
+        }
+        
+        .mobile-sidebar .sidebar-contact a i {
+            margin-right: 8px;
+        }
+        
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-close:hover {
+            background: #063f84;
+            color: #fff;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 991px) {
+            .hamburger-btn {
+                display: flex;
+            }
+            
+            .navbar .site-menu {
+                display: none;
+            }
+            
+            .navbar .navbar-button {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-sidebar {
+                width: 260px;
+            }
+            
+            .navbar .logo a img {
+                height: 75px !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <!--header-->
-  <section class="w3l-header">
-    <header id="site-header" class="fixed-top">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark stroke">
-          <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" alt="Crown Nova Technologies" title="Crown Nova Technologies" class="navbar-logo">
-          </a> 
-          <button class="navbar-toggler collapsed bg-gradient" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
-            <span class="navbar-toggler-icon fa icon-close fa-times"></span>
-          </button>
+    <div class="page-transition"></div>
+    <aside class="side-widget">
+        <div class="inner">
+            <!-- Logo Menu Mobile -->
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="hide-mobile">
+                <div class="or">
+                    <h2 class="h2-baslik-hizmetler-2"> Contact Information </h2>
+                </div>
+                <p style="font-style: italic; color: #666; font-size: 12px; margin-bottom: 10px; z-index: index 100;;">"Beyond Technology, Beyond Boundaries"</p>
+                <div class="bosluksv"></div>
+                <div class="iconsv"><i class="flaticon-call"></i></div>
+                <address class="address">
+                    <p><a href="tel:+447432634216">+44 7432634216</a>
+                    <div class="bosluksv"></div>
+                    <div class="iconsv"><i class="flaticon-email"></i></div>
+                    <div class="email-list" style="margin-bottom: 10px;">
+                        <a href="mailto:support@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">support@crownnovatech.com</a>
+                        <a href="mailto:info@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">info@crownnovatech.com</a>
+                        <a href="mailto:ammar@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">ammar@crownnovatech.com</a>
+                    </div>
+                    <div class="bosluksv"></div>
+                    <div class="iconsv"><i class="flaticon-location"></i></div>
+                    <a href="#">66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</a>
+                    <div class="bosluksv"></div>
+                    <div class="or">
+                      <a href="#"><img src="img/facebook1.png" alt="Facebook"></a>
+                      <a href="#"><img src="img/instagram1.png" alt="Instagram"></a>
+                      <a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img src="img/icons8-linkedin-501.png" width="24" height="24" alt="LinkedIn"></a>
+                    </div>
+                    </p>
+                </address>
+            </div>
+            <div class="show-mobile">
+                <div class="site-menu">
+                    <ul class="menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us </a></li>
+                        <li><a href="services.html">Services </a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <small>© 2025 - Crown Nova Technologies Ltd</small>
+        </div>
+    </aside>
 
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="services.html">Services</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <div class="mobile-position">
-            <nav class="navigation">
-              <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                  <input type="checkbox" id="checkbox" aria-label="Toggle dark mode">
-                  <div class="mode-container py-1">
-                    <i class="gg-sun"></i>
-                    <i class="gg-moon"></i>
-                  </div>
-                </label>
-              </div>
-            </nav>
-          </div>
-        </nav>
-      </div>
+    <nav class="navbar">
+        <div class="container">
+            <!-- Logo Menu Desktop -->
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="site-menu">
+                <ul class="menueffect">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us </a></li>
+                    <li><a href="services.html">Services </a></li>
+                    <li><a href="contact-us.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="navbar-button"> <a href="tel:+447432634216"><i class="flaticon-call iconp"></i>&nbsp;&nbsp;&nbsp;+44 7432634216</a> </div>
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-btn" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+    <div class="mobile-sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+        <div class="sidebar-logo">
+            <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+        <div class="sidebar-contact">
+            <a href="tel:+447432634216"><i class="flaticon-call"></i> +44 7432634216</a>
+        </div>
+    </div>
+
+    <header class="page-header wow fadeInUp" data-wow-delay="0.5s" data-background="img/page-header.jpg">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="bosluk3"></div>
+            <p><a href="index.html">Home</a> <i class="flaticon-right-chevron"></i> About Us</p>
+        </div>
+        <!-- end container -->
     </header>
-  </section>
 
-  <div class="inner-banner" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 12, 12, 0.1) 100%), url('images/office3.jpeg') no-repeat center bottom; background-size: cover; background-attachment: fixed;"></div>
+    <main>
+        <!--About Info Alanı-->
+        <div class="bosluk8"></div>
+        <section class="hakkimizda-bolumu-anasayfa">
+            <div class="h-yazi-ozel h-yazi-margin-ozel">
+            </div>
+            <div class="tablo">
+                <div class="tablo--1-ve-2 wow fade">
+                    <div class="galeri1 wow zoomIn" data-wow-delay="0.5s">
+                        <img class="imagerotate" src="img/technology.png" alt="">
+                    </div>
+                    <div class="galeri wow slideInUp" data-wow-delay="100ms" data-wow-duration="1500ms" data-tilt>
+                        <img src="img/webone-about.png" alt="Webone About" class="galeri__gorsel galeri__gorsel--3 zimage">
+                    </div>
+                </div>
+                <!--Galeri Görsel Alanı-->
+                <div class="tablo--1-ve-3 wow fadeInUp" data-wow-delay="0.5s">
+                    <h2 class="h2-baslik-anasayfa-ozel wow fadeInUp" data-wow-delay="0.6s"> Professional IT Service </h2>
+                    <div class="bosluk333"></div>
+                    <p class="paragraf wow fade">
+                        <b>Crown Nova Technologies Ltd</b> is an IT technical service provider. We provide on-demand, well-managed IT support services globally, 24/7. Our skilled team of engineers is always ready to be dispatched to client sites, ensuring prompt issue resolution and uninterrupted operations.
+                    </p>
+                    <h2 class="h2-baslik-anasayfa-ozel wow fadeInUp" data-wow-delay="0.6s"> Mission Vision</h2>
+                    <div class="bosluk333"></div>
+                    <p class="paragraf wow fade">Our vision is to be the catalyst for transformative change in the tech industry, driving innovation and creating a better future. We are committed to our mission of empowering businesses and individuals through cutting-edge technologies
+                        that enhance efficiency, productivity, and sustainability. By pushing boundaries and embracing challenges, we strive to unlock the full potential of technology in shaping a brighter tomorrow.</p>
 
-  <!-- About Section -->
-  <div class="w3l-cwp4-sec py-5">
-    <div class="container py-md-5 py-3">
-      <div class="cwp4-two align-items-center">
-        <div class="abouthyn-inn text-center">
-          <h6 class="sub-titlehny">About Us</h6>
-          <h3 class="hny-title">Business Terms of Crown Nova Technologies LTD</h3>
-          <p class="ab-para">Crown Nova Technologies is a trusted IT technical service provider, specializing in on-demand and well-managed IT support services. Our engineers operate with the precision and dedication of soldiers—ready to be deployed to client sites and swiftly resolve technical issues. We maintain a dedicated team of expert Field Engineers, available around the clock for on-site support. Our in-house technical team carefully assesses each issue and assigns the most suitable engineer with the required skill set, ensuring efficient and effective resolution. At Crown Nova, we are committed to delivering top-tier Field Engineer (FE) management services and assembling the best IT field teams to meet client demands with excellence and reliability.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- What We Do -->
-  <section class="w3l-ab-features py-5">
-    <div class="container py-md-5 py-3">
-      <div class="row features-w3pvt-main align-items-center" id="features">
-        <div class="col-lg-6 feature-gird pb-lg-5">
-          <h6 class="sub-titlehny mb-2">What We Do</h6>
-          <h3 class="hny-title mb-4">We Provide Flexible IT Support Services</h3>
-          <p class="pr-lg-5">Our highly skilled technical team is available 24/7 to provide on-site support and resolve issues swiftly and efficiently. We offer unlimited on-site user support through a network of dedicated and experienced engineers who deliver both professional services and expert guidance. Our certified professionals adhere to industry best practices, ensuring that every solution aligns with business needs and operational goals. Whether it's routine maintenance or urgent troubleshooting, we are committed to providing reliable, top-quality IT support around the clock.</p>
-        </div>
-        <div class="col-lg-6 feature-gird pr-lg-5 mt-md-0 mt-4 pb-lg-5">
-          <img src="images/it-support.webp" alt="" class="img-fluid">
-        </div>
-        <div class="col-lg-6 feature-gird mt-5">
-          <img src="images/JuniorNetworkEngineer.jpg" alt="" class="img-fluid">
-        </div>
-        <div class="col-lg-6 feature-gird mt-5 pl-lg-5">
-          <h6 class="sub-titlehny mb-2">We are Offering</h6>
-          <h3 class="hny-title mb-4">Our Services to World's Best Giant IT Companies</h3>
-          <p class="pr-lg-5">We are a global IT support provider, offering expert services across a wide range of leading technologies, including HP, IBM, Dell, Cisco, Fujitsu, NetApp, EMC, Oracle/Sun, Hitachi, and more. Our comprehensive service offerings include hardware maintenance support, IMAC (Install, Move, Add, Change) services, smart hands support for desktops, servers, storage systems, tape libraries, and detailed site surveys. Our Head Office is based in London, UK, with a global presence supported by a network of experienced engineers and strategic business partners.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <div class="bosluk3"></div>
+        <div class="bosluk3sh"></div>
 
-  <!-- Previous Clients -->
-  <section class="w3l-companies py-5">
-    <div class="container text-center">
-      <h6 class="sub-titlehny">Previous Clients</h6>
-      <h3 class="hny-title mb-4">Companies We've Worked With</h3>
-      <div class="company-logos d-flex flex-wrap justify-content-center align-items-center gap-4">
-        <img src="images/nscglobal_logo.jpeg" alt="NSC Global" class="company-logo">
-        <img src="images/park_place_technologies_logo.jpeg" alt="Park Place Technologies" class="company-logo">
-      </div>
-    </div>
-  </section>
+        <section class="hakkimizda-bolumu-anasayfa">
+            <div class="h-yazi-ozel h-yazi-margin-ozel">
+            </div>
+            <div class="tablo">
+                <div class="tablo--1-ve-2 wow fade">
+                    <h2 class="h2-baslik-anasayfa-ozel wow fadeInUp" data-wow-delay="0.6s"> Why Us </h2>
+                    <div class="bosluk333"></div>
+                    <p class="paragraf wow fade">
+                        We are at the forefront of technological advancements with strong focus on Our diverse portfolio includes state-of-the-art products and services designed to empower businesses and individuals. Through strategic partnerships and a forward- thinking approach,
+                        we aim to shape the future of innovation. We are constantly improving our efforts to maintain a high standard of quality in all aspects
+                    </p>
+                </div>
+                <div class="tablo--1-ve-2 wow fade">
+                    <h2 class="h2-baslik-anasayfa-ozel wow fadeInUp" data-wow-delay="0.6s"> Key Focus Areas</h2>
+                    <div class="bosluk333"></div>
+                    <p class="paragraf wow fade">
+                        At Crown Nova Technologies Ltd, our key focus areas include it support services, desktop and servers, cloud services, network and security solutions. By harnessing the power of our dedicated team, we enable businesses to streamline operations, optimize decision-making,
+                        and unlock new opportunities for growth. Our expertise in these areas positions us as a trusted partner in digital transformation.
+                    </p>
+                </div>
 
-  <!-- Footer -->
-  <footer>
-    <section class="w3l-footer">
-      <div class="w3l-footer-16-main py-5">
-        <div class="container pt-lg-4">
-          <div class="row footer-border">
-            <div class="col-lg-3 col-md-5 column pr-md-0">
-              <h2><a href="index.html" class="footer-brand-logo"><span class="fa fa-laptop"></span> Crown Nova Technologies Ltd</a></h2>
-              <p class="footer-text-justify">Crown Nova Technologies LTD is an IT technical service provider. We are focused in providing on-demand and well managed IT support services around the globe and around the clock.</p>
-              <ul class="mt-4 contact">
-                <li>
-                  <p><span class="fa fa-phone" aria-hidden="true"></span> <a href="tel:+44 7432634216">+44 7432634216</a></p>
-                </li>
-                <li>
-                  <p><span class="fa fa-home" aria-hidden="true"></span> 166 Blacker Rd, Birkby, Huddersfield HD1 5HH, UK</p>
-                </li>
-              </ul>
+            </div>
+        </section>
+
+        <!--Quality Alanı-->
+        <!--Quality 1-->
+        <section class="paketler-alani">
+            <div class="bosluk3"></div>
+            <div class="bosluk3"></div>
+            <div class="tabloozellik">
+                <div class="tablo--1-ve-4">
+                    <div class="paketler4 wow fadeInLeft" data-wow-delay="0.5s">
+                        <div class="paketler4__on paketler4__on--onyazi">
+                            <div class="paketler4__icerik">
+                                <div class="icon"><i class="flaticon-medal"></i></div>
+                                <h3 class="baslik-3 h-yazi-margin-kucuk">Reliability</h3>
+                            </div>
+                        </div>
+                        <div class="paketler4__on paketler4__on--arkayazi paketler4__on--arkayazi-1">
+                            <div class="paketler4__pr">
+                                <div class="paketler4__pr-kutu">
+                                    <h3 class="baslik-orta h-yazi-margin-kucuk">Reliability</h3>
+                                    <p class="services-kutu2--yazi1 wow fade">
+                                        We provide accurate, reliable and ethical services with our expert staff. We apply the fastest and most reliable methods for your brand.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Quality 2-->
+                <div class="tablo--1-ve-4">
+                    <div class="paketler4 wow fadeInLeft" data-wow-delay="0.6s">
+                        <div class="paketler4__on paketler4__on--onyazi">
+                            <div class="paketler4__icerik">
+                                <div class="icon"><i class="flaticon-badge"></i></div>
+                                <h3 class="baslik-3 h-yazi-margin-kucuk">Loyalty</h3>
+                            </div>
+                        </div>
+                        <div class="paketler4__on paketler4__on--arkayazi paketler4__on--arkayazi-2">
+                            <div class="paketler4__pr">
+                                <div class="paketler4__pr-kutu">
+                                    <h3 class="baslik-orta h-yazi-margin-kucuk">Loyalty</h3>
+                                    <p class="services-kutu2--yazi1 wow fade">
+                                        Our long-term work continues until the job is finished. We establish solid and long-term relationships with all the companies we work with.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Quality 3-->
+                <div class="tablo--1-ve-4">
+                    <div class="paketler4 wow fadeInRight" data-wow-delay="0.7s">
+                        <div class="paketler4__on paketler4__on--onyazi">
+                            <div class="paketler4__icerik">
+                                <div class="icon"><i class="flaticon-recommended"></i></div>
+                                <h3 class="baslik-3 h-yazi-margin-kucuk">Experience</h3>
+                            </div>
+                        </div>
+                        <div class="paketler4__on paketler4__on--arkayazi paketler4__on--arkayazi-3">
+                            <div class="paketler4__pr">
+                                <div class="paketler4__pr-kutu">
+                                    <h3 class="baslik-orta h-yazi-margin-kucuk">Experience</h3>
+                                    <p class="services-kutu2--yazi1 wow fade">
+                                        Thanks to the experience we have gained over the years, the specialist provides service with the latest technology devices.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Quality 4-->
+                <div class="tablo--1-ve-4">
+                    <div class="paketler4 wow fadeInRight" data-wow-delay="0.8s">
+                        <div class="paketler4__on paketler4__on--onyazi">
+                            <div class="paketler4__icerik">
+                                <div class="icon"><i class="flaticon-handshake"></i></div>
+                                <h3 class="baslik-3 h-yazi-margin-kucuk">Support</h3>
+
+                            </div>
+                        </div>
+                        <div class="paketler4__on paketler4__on--arkayazi paketler4__on--arkayazi-3">
+                            <div class="paketler4__pr">
+                                <div class="paketler4__pr-kutu">
+                                    <h3 class="baslik-orta h-yazi-margin-kucuk">Support</h3>
+                                    <p class="services-kutu2--yazi1 wow fade">
+                                        We accelerate your business processes by providing professional support. We solve your problems and provide instant solutions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--Count-->
+        <section class="content-section" data-background="#fafafa">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.5s">
+                        <div class="icon"><i class="flaticon-handshake"></i></div>
+                        <div class="counter-box wow fade">
+                            <span class="odometer" data-count="24" data-status="yes">0</span>
+                            <h6>Years of Experience</h6>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <div class="col-lg-3 col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+                        <div class="icon"><i class="flaticon-group"></i></div>
+                        <div class="counter-box wow fade">
+                            <span class="odometer" data-count="690" data-status="yes">0</span>
+                            <h6>Happy Clients</h6>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <div class="col-lg-3 col-md-6 wow fadeInRight" data-wow-delay="0.7s">
+                        <div class="icon"><i class="flaticon-insurance"></i></div>
+                        <div class="counter-box wow fade">
+                            <span class="odometer" data-count="720" data-status="yes">0</span>
+                            <h6>Finished Projects</h6>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <div class="col-lg-3 col-md-6 wow fadeInRight" data-wow-delay="0.8s">
+                        <div class="icon"><i class="flaticon-review"></i></div>
+                        <div class="counter-box wow fade">
+                            <span class="odometer" data-count="28" data-status="yes">0</span>
+                            <h6>Our Awards</h6>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+            </div>
+        </section>
+        <!--Yorumlar-->
+
+
+        <!--Footer Alanı-->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                        <!-- end logo -->
+                        <p class="footer-slogan" style="font-style: italic; color: #aaa; margin-bottom: 15px; font-size: 14px;">"Beyond Technology, Beyond Boundaries"</p>
+                        <div class="footer-info wow animated fadeInUp animated" data-wow-delay="0.5s">
+                            <p><i class="flaticon-road"></i><span>66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</span></p>
+                            <p><i class="flaticon-call"></i><span>+44 7432634216</span></p>
+                            <div class="footer-emails">
+                                <p><i class="flaticon-email"></i><span>support@crownnovatech.com</span></p>
+                                <p><i class="flaticon-email"></i><span>info@crownnovatech.com</span></p>
+                                <p><i class="flaticon-email"></i><span>ammar@crownnovatech.com</span></p>
+                            </div>
+                        </div>
+                        <!-- end footer-info -->
+                        <ul class="footer-social wow animated fadeInUp animated" data-wow-delay="0.5s">
+                            <li><a href="#"><img width="20" height="20" src="img/facebook.png" alt="Facebook"></a></li>
+                            <li><a href="#"><img width="20" height="20" src="img/instagram2.png" alt="Instagram"></a></li>
+                            <li><a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img width="20" height="20" src="img/icons8-linkedin-50.png" alt="LinkedIn"></a></li>
+                        </ul>
+                    </div>
+
+                    <!-- end col-3 -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
+
+                        <h6 class="widget-title">Quick Links</h6>
+                        <ul class="footer-menu">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="contact-us.html">Contact</a></li>
+                        </ul>
+
+                    </div>
+                    <!-- end col-4 -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <h6 class="widget-title">Engineering Resource</h6>
+                        <ul class="footer-menu">
+                            <li><a>Break Fix Engineers</a></li>
+                            <li><a>Server Engineers</a></li>
+                            <li><a>Network Engineers</a></li>
+                            <li><a>Wireless Engineers</a></li>
+                            <li><a>Desktop/side Engineers</a></li>
+
+                        </ul>
+                    </div>
+                    <!-- end col-2 -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <h6 class="widget-title">Professional Services</h6>
+                        <ul class="footer-menu">
+                            <li><a>IMAC</a></li>
+                            <li><a>Roll out</a></li>
+                            <li><a>Relocation</a></li>
+                            <li><a>ITAD</a></li>
+                            <li><a>Reverse Logistics</a></li>
+                            <li><a>Depot Repair / Storage</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- Copyright -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="copyright">© 2025 Crown Nova Technologies Ltd - All Rights Reserved.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div id="top" style="cursor: pointer;">
+                <img width="50" height="50" src="img/go-top.png" alt="" />
             </div>
 
-            <div class="col-lg-2 col-md-4 col-sm-6 column mt-md-0 mt-5 pl-lg-4">
-              <h3>Company</h3>
-              <ul class="footer-gd-16">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6 column mt-md-0 mt-5">
-              <h3>Useful Links</h3>
-              <ul class="footer-gd-16">
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About Company</a></li>
-                <li><a href="about.html">Our Team</a></li>
-                <li><a href="contact.html">Contact</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-5 col-md-5 column pl-md-5 mt-md-0 mt-5">
-              <h3>Our Main Services</h3>
-              <a class="d-grid twitter-feed" href="services.html">
-                <img src="images/1.jpg" class="img-fluid" alt="">
-                <p class="twitter-title">Our Staffing Service with Global Coverage.<br></p>
-              </a>
-              <a class="d-grid twitter-feed" href="services.html">
-                <img src="images/5.jpg" class="img-fluid" alt="">
-                <p class="twitter-title">Our DC Onsite Support Service for Desktop Management.<br></p>
-              </a>
-              <a class="d-grid twitter-feed" href="services.html">
-                <img src="images/3.jpg" class="img-fluid" alt="">
-                <p class="twitter-title">Our Datacenter Relocation Service for installing servers.<br></p>
-              </a>
-            </div>
-          </div>
-          <div class="below-section pt-4 mt-4 text-center">
-            <div class="columns-2">
-              <ul class="social">
-                <li><a href="#" aria-label="Facebook" title="Visit our Facebook page"><span class="fa fa-facebook" aria-hidden="true"></span></a></li>
-                <li><a href="#" aria-label="LinkedIn" title="Visit our LinkedIn page"><span class="fa fa-linkedin" aria-hidden="true"></span></a></li>
-                <li><a href="#" aria-label="Instagram" title="Visit our Instagram page"><span class="fa fa-instagram" aria-hidden="true"></span></a></li>
-              </ul>
-            </div>
-            <div class="columns mt-3">
-              <p>© <span id="currentYear">2025</span> Crown Nova Technologies Ltd. All rights reserved | Design by <a href="index.html">Team Crown Nova</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
+            <!--Cursor Script-->
+            <script>
+                init_pointer({
 
-      <button onclick="topFunction()" id="movetop" title="Go to top">
-        <span class="fa fa-angle-up"></span>
-      </button>
-    </section>
-  </footer>
+                })
+            </script>
 
-  <!-- JavaScript -->
-  <script src="assets/js/jquery-3.3.1.min.js"></script>
-  <script src="assets/js/theme-change.js"></script>
-  <script src="assets/js/owl.carousel.js"></script>
-  <script src="assets/js/jquery.waypoints.min.js"></script>
-  <script src="assets/js/jquery.countup.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
-  <script src="assets/js/main.js"></script>
+        </footer>
+
+        <script src="js/team.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/fancybox.min.js"></script>
+        <script src="js/swiper.min.js"></script>
+        <script src="js/odometer.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="js/3d.jquery.js"></script>
+        <script src="js/pointer.js"></script>
+        <script>
+            function toggleSidebar() {
+                document.querySelector('.mobile-sidebar').classList.toggle('active');
+                document.querySelector('.sidebar-overlay').classList.toggle('active');
+                document.querySelector('.hamburger-btn').classList.toggle('active');
+                document.body.style.overflow = document.querySelector('.mobile-sidebar').classList.contains('active') ? 'hidden' : '';
+            }
+            
+            function closeSidebar() {
+                document.querySelector('.mobile-sidebar').classList.remove('active');
+                document.querySelector('.sidebar-overlay').classList.remove('active');
+                document.querySelector('.hamburger-btn').classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        </script>
 </body>
+
 </html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="css/icon-font.css">
+        <link rel="stylesheet" href="css/style.css">   
+        <link rel="stylesheet" href="css/fancybox.min.css">
+        <link rel="stylesheet" href="css/swiper.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/odometer.min.css">
+        <link rel="stylesheet" href="css/swiper.min.css">
+        <link rel="stylesheet" href="css/flaticon.css">
+        <title>Crown Nova Technologies Ltd | IT Solutions</title>
+        <link rel="shortcut icon" type="image/png" href="img/logo.png">
+        <meta name="description" content="Custom IT Solutions for Your Business. We are at your service with our reliable service understanding and professional team.">
+        <style>
+            /* Smaller Logo */
+            .navbar .logo a img {
+                height: 75px !important;
+            }
+            
+            /* Hamburger Menu Button */
+            .hamburger-btn {
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 21px;
+                cursor: pointer;
+                margin-left: 20px;
+                z-index: 1001;
+            }
+            
+            .hamburger-btn span {
+                display: block;
+                width: 100%;
+                height: 3px;
+                background-color: #063f84;
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            .hamburger-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+            
+            .hamburger-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -7px);
+            }
+            
+            /* Mobile Sidebar */
+            .mobile-sidebar {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 280px;
+                height: 100vh;
+                background: #ffffff;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                padding: 80px 30px 30px;
+                overflow-y: auto;
+            }
+            
+            .mobile-sidebar.active {
+                right: 0;
+            }
+            
+            .mobile-sidebar .sidebar-logo {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .mobile-sidebar .sidebar-logo img {
+                height: 75px;
+            }
+            
+            .mobile-sidebar .sidebar-menu {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .mobile-sidebar .sidebar-menu li {
+                float: none;
+                padding: 0;
+                margin-bottom: 5px;
+            }
+            
+            .mobile-sidebar .sidebar-menu li a {
+                display: block;
+                padding: 15px 20px;
+                color: #333;
+                font-size: 16px;
+                font-weight: 600;
+                text-decoration: none;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-sidebar .sidebar-menu li a:hover,
+            .mobile-sidebar .sidebar-menu li a.active {
+                background: #063f84;
+                color: #fff;
+            }
+            
+            .mobile-sidebar .sidebar-contact {
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+            }
+            
+            .mobile-sidebar .sidebar-contact a {
+                display: block;
+                padding: 15px 20px;
+                background: #063f84;
+                color: #fff;
+                text-align: center;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size:medium;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-sidebar .sidebar-contact a:hover {
+                background: #0a4d9e;
+            }
+            
+            .mobile-sidebar .sidebar-contact a i {
+                margin-right: 8px;
+            }
+            
+            .sidebar-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 35px;
+                height: 35px;
+                background: #f0f0f0;
+                border: none;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+            
+            .sidebar-close:hover {
+                background: #063f84;
+                color: #fff;
+            }
+            
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .sidebar-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            @media (max-width: 991px) {
+                .hamburger-btn {
+                    display: flex;
+                }
+                
+                .navbar .site-menu {
+                    display: none;
+                }
+                
+                .navbar .navbar-button {
+                    display: none;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .mobile-sidebar {
+                    width: 260px;
+                }
+                
+                .navbar .logo a img {
+                    height: 75px !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+      <div class="page-transition"></div>
+      <aside class="side-widget">
+          <div class="inner">
+          <!-- Logo Menu Mobile -->
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="hide-mobile">
+              <div class="or">
+                  <h2 class="h2-baslik-hizmetler-2"> Contact Information </h2>
+              </div>
+              <p style="font-style: italic; color: #666; font-size: 12px; margin-bottom: 10px;">"Beyond Technology, Beyond Boundaries"</p>
+              <div class="bosluksv"></div>
+              <div class="iconsv"><i class="flaticon-call"></i></div>
+              <address class="address">
+              <p><a href="tel:+447432634216">+44 7432634216</a>
+                  <div class="bosluksv"></div>
+                  <div class="iconsv"><i class="flaticon-email"></i></div>
+                  <div class="email-list" style="margin-bottom: 10px;">
+                      <a href="mailto:support@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">support@crownnovatech.com</a>
+                      <a href="mailto:info@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">info@crownnovatech.com</a>
+                      <a href="mailto:ammar@crownnovatech.com" style="display: block; margin-bottom: 5px; font-size: 13px;">ammar@crownnovatech.com</a>
+                  </div>
+                  <div class="bosluksv"></div>
+                  <div class="iconsv"><i class="flaticon-location"></i></div>
+                  <a href="#">66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</a>
+                  <div class="bosluksv"></div>
+                  <div class="or">
+                      <a href="#"><img src="img/facebook1.png" alt="Facebook"></a>
+                      <a href="#"><img src="img/instagram1.png" alt="Instagram"></a>
+                      <a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img src="img/icons8-linkedin-501.png" width="24" height="24" alt="LinkedIn"></a>
+                  </div>
+              </p>
+              </address>
+            </div>
+            <div class="show-mobile">
+              <div class="site-menu">
+                  <ul class="menu">
+                      <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us </a></li>
+                        <li><a href="services.html">Services </a></li>
+                        <li><a href="contact-us.html">Contact</a></li>
+                  </ul>
+                </div>
+            </div>
+            <small>© 2025 - Crown Nova Technologies Ltd</small> </div>
+        </aside>
+        <nav class="navbar">
+          <div class="container">
+          <!-- Logo Menu Desktop -->
+            <div class="logo"> <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a> </div>
+            <div class="site-menu">
+              <ul class="menueffect">
+              <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us </a></li>
+            <li><a href="services.html">Services </a></li>
+            <li><a href="contact-us.html">Contact</a></li>
+              </ul>
+            </div>
+            <div class="navbar-button"> <a href="tel:+447432634216"><i class="flaticon-call iconp"></i>&nbsp;&nbsp;&nbsp;+44 7432634216</a> </div>
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-btn" onclick="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Mobile Sidebar -->
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+        <div class="mobile-sidebar">
+            <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+            <div class="sidebar-logo">
+                <a href="index.html"><img src="img/logo.png" alt="Crown Nova Technologies Ltd"></a>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact-us.html" class="active">Contact</a></li>
+            </ul>
+            <div class="sidebar-contact">
+                <a href="tel:+447432634216"><i class="flaticon-call"></i> +44 7432634216</a>
+            </div>
+        </div>
+        <header class="page-header wow fadeInUp" data-wow-delay="0.5s" data-background="img/page-header.jpg">
+          <div class="container">
+            <h2>Contact Us</h2>
+            <div class="bosluk3"></div>
+            <p><a href="index.html">Home</a> <i class="flaticon-right-chevron"></i> Contact Us </p>
+          </div>
+          <!-- end container --> 
+        </header>
+        <main>
+            <!--İletişim İcon Alanı-->
+            <section class="iletisim-icon-alani">
+                <div class="tablo">
+                    <!--telefon 1-->
+                    <div class="tablo--1-ve-3 wow animated fadeInLeft animated" data-wow-delay="0.5s">
+                        <div class="ozellik-kutu-iletisim" onclick="location.href='tel:+447432634216';" style="cursor:pointer;" data-tilt>
+                            <div class="icon"><i class="flaticon-call"></i></div>
+                            <h3 class="baslik-4 h-yazi-margin-kucuk-2">Customer Service</h3>
+                            <p class="ozellik-kutu-iletisim--yazi">
+                                +44 7432634216
+                            </p>
+                        </div>
+                    </div>
+                    <!--mail 2-->
+                    <div class="tablo--1-ve-3 wow animated fadeInLeft animated" data-wow-delay="0.5s">
+                        <div class="ozellik-kutu-iletisim" onclick="location.href='mailto:support@crownnovatech.com';" style="cursor:pointer;" data-tilt>
+                            <div class="icon"><i class="flaticon-email"></i></div>
+                            <h3 class="baslik-4 h-yazi-margin-kucuk-2">Email Addresses</h3>
+                            <p class="ozellik-kutu-iletisim--yazi">
+                                support@crownnovatech.com<br>
+                                info@crownnovatech.com<br>
+                                ammar@crownnovatech.com
+                            </p>
+                        </div>
+                    </div>
+                    <!--adres 3-->
+                    <div class="tablo--1-ve-3 wow animated fadeInRight animated" data-wow-delay="0.5s">
+                        <div class="ozellik-kutu-iletisim" onclick="location.href='https://goo.gl/maps/dSGtD7pcer4zp4Q56';" style="cursor:pointer;" data-tilt>
+                            <div class="icon"><i class="flaticon-location"></i></div>
+                            <h3 class="baslik-4 h-yazi-margin-kucuk-2">Office</h3>
+                            <p class="ozellik-kutu-iletisim--yazi">
+                                66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--İletişim Form Alanı-->
+            <section class="iletisim-form-alani">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <!-- Contact Form - Sends email via Migadu SMTP -->
+                      <form id="contactForm" class="form">
+                          <div class="form__grup wow fadeInLeft" data-wow-delay="0.5s">
+                              <input type="text" class="form__input" placeholder="Full Name" id="txt_isim" name="name" required>
+                              <label for="name" class="form__label">Full Name</label>
+                          </div>
+                    </div>
+                    <div class="col-sm">
+                      <div class="form__grup wow fadeInLeft" data-wow-delay="0.6s">
+                          <input type="email" class="form__input" placeholder="Email Address" id="txt_eposta" name="email" required>
+                          <label for="email" class="form__label">Email Address</label>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <div class="form__grup wow fadeInRight" data-wow-delay="0.7s">
+                          <input type="text" class="form__input" placeholder="Phone Number" id="txt_telefon" name="phone" required>
+                          <label for="telefon" class="form__label">Phone Number</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="form__grup wow fadeInUp" data-wow-delay="0.8s">
+                          <textarea name="message" placeholder="Your Message" id="txt_mesaj" class="form__input"></textarea>
+                          <label for="message" class="form__label"> Your Message ...</label>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="form__grup wow fadeInUp" data-wow-delay="0.9s">
+                          <button class="buton-contact buton-contact--kirmizi" type="submit" value="send" id="btn_Gonder">SEND</button>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+            
+                
+                        </form>
+                    </div>
+                    
+                </div>
+            </section>
+        </main>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2369.2468777047344!2d-1.8025967842185634!3d53.65421395608562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bde4e8b8b8b8b%3A0x8b8b8b8b8b8b8b8b!2s166%20Blacker%20Rd%2C%20Huddersfield%20HD1%205HH%2C%20UK!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                            <!-- end logo -->
+                            <p class="footer-slogan" style="font-style: italic; color: #aaa; margin-bottom: 15px; font-size: 14px;">"Beyond Technology, Beyond Boundaries"</p>
+                            <div class="footer-info wow animated fadeInUp animated" data-wow-delay="0.5s">
+                                <p><i class="flaticon-road"></i><span>66 Blacker Rd, Birkby, Huddersfield HD1 5HS, UK</span></p>
+                                <p><i class="flaticon-call"></i><span>+44 7432634216</span></p>
+                                <div class="footer-emails">
+                                    <p><i class="flaticon-email"></i><span>support@crownnovatech.com</span></p>
+                                    <p><i class="flaticon-email"></i><span>info@crownnovatech.com</span></p>
+                                    <p><i class="flaticon-email"></i><span>ammar@crownnovatech.com</span></p>
+                                </div>
+                            </div>
+                            <!-- end footer-info -->
+                            <ul class="footer-social wow animated fadeInUp animated" data-wow-delay="0.5s">
+                                <li><a href="#"><img width="20" height="20" src="img/facebook.png" alt="Facebook"></a></li>
+                                <li><a href="#"><img width="20" height="20" src="img/instagram2.png" alt="Instagram"></a></li>
+                                <li><a href="https://www.linkedin.com/company/crown-nova-technologies-limited/" target="_blank"><img width="20" height="20" src="img/icons8-linkedin-50.png" alt="LinkedIn"></a></li>
+                            </ul>
+                        </div>
+                      
+                        <!-- end col-3 -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
+                            
+                            <h6 class="widget-title">Quick Links</h6>
+                        <ul class="footer-menu">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="contact-us.html">Contact</a></li>
+                        </ul>
+                            
+                        </div>
+                        <!-- end col-4 -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <h6 class="widget-title">Engineering Resource</h6>
+                        <ul class="footer-menu">
+                            <li><a>Break Fix Engineers</a></li>
+                            <li><a>Server Engineers</a></li>
+                            <li><a>Network Engineers</a></li>
+                            <li><a>Wireless Engineers</a></li>
+                            <li><a>Desktop/side Engineers</a></li>
+                            
+                        </ul>
+                        </div>
+                        <!-- end col-2 -->
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 wow animated fadeInUp animated" data-wow-delay="0.5s">
+                        <h6 class="widget-title">Professional Services</h6>
+                        <ul class="footer-menu">
+                                <li><a>IMAC</a></li>
+                                <li><a>Roll out</a></li>
+                                <li><a>Relocation</a></li>
+                                <li><a>ITAD</a></li>
+                                <li><a>Reverse Logistics</a></li>
+                                <li><a>Depot Repair / Storage</a></li>
+                            </ul> 
+                        </div>
+                        </div>
+                    <!-- end row --> 
+                  </div>
+                <!-- Copyright -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="copyright">© 2025 Crown Nova Technologies Ltd - All Rights Reserved.</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="top" style="cursor: pointer;">
+                    <img width="50" height="50" src="img/go-top.png" alt=""/>
+                </div>
+                
+                
+                
+            </footer>
+    <script src="js/team.js"></script>
+    <script src="js/jquery.min.js"></script> 
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="js/fancybox.min.js"></script> 
+    <script src="js/swiper.min.js"></script> 
+    <script src="js/odometer.min.js"></script> 
+    <script src="js/wow.min.js"></script> 
+    <script src="js/scripts.js"></script>
+    <script src="js/3d.jquery.js"></script>
+    <script src="js/pointer.js"></script>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.mobile-sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+            document.querySelector('.hamburger-btn').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.mobile-sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeSidebar() {
+            document.querySelector('.mobile-sidebar').classList.remove('active');
+            document.querySelector('.sidebar-overlay').classList.remove('active');
+            document.querySelector('.hamburger-btn').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Contact Form Submission Handler
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('btn_Gonder');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'SENDING...';
+            submitBtn.disabled = true;
+            
+            const formData = {
+                name: document.getElementById('txt_isim').value,
+                email: document.getElementById('txt_eposta').value,
+                phone: document.getElementById('txt_telefon').value,
+                message: document.getElementById('txt_mesaj').value
+            };
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Redirect to thank you page on success
+                    window.location.href = 'thank-you.html';
+                } else {
+                    alert(result.error || 'Something went wrong. Please try again.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again later.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+  </body>
+</html>
