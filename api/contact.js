@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -17,11 +17,14 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { name, email, phone, message } = req.body || {};
+        const body = req.body || {};
+        const { name, email, phone, message } = body;
 
         // Validate required fields
         if (!name || !email || !message) {
-            return res.status(400).json({ error: 'Please fill in all required fields (Name, Email, and Message)' });
+            return res.status(400).json({ 
+                error: 'Please fill in all required fields (Name, Email, and Message)' 
+            });
         }
 
         // Validate email format
@@ -60,52 +63,52 @@ export default async function handler(req, res) {
             tls: {
                 rejectUnauthorized: false
             },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 10000,
+            connectionTimeout: 15000,
+            greetingTimeout: 15000,
+            socketTimeout: 15000,
         });
 
-    // Email content
-    const mailOptions = {
-        from: `"Crown Nova Contact Form" <${smtpUser}>`,
-        to: contactEmail,
-        cc: 'info@crownnovatech.com, ammar@crownnovatech.com',
-        replyTo: email,
-        subject: `New Contact Form Submission from ${name}`,
-        html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <div style="background: #063f84; color: white; padding: 20px; text-align: center;">
-                    <h1 style="margin: 0;">New Contact Form Submission</h1>
-                </div>
-                <div style="padding: 30px; background: #f9f9f9;">
-                    <h2 style="color: #063f84; border-bottom: 2px solid #063f84; padding-bottom: 10px;">Contact Details</h2>
-                    
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px 0; font-weight: bold; color: #333; width: 120px;">Name:</td>
-                            <td style="padding: 10px 0; color: #555;">${name}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 0; font-weight: bold; color: #333;">Email:</td>
-                            <td style="padding: 10px 0; color: #555;"><a href="mailto:${email}" style="color: #063f84;">${email}</a></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px 0; font-weight: bold; color: #333;">Phone:</td>
-                            <td style="padding: 10px 0; color: #555;"><a href="tel:${phone}" style="color: #063f84;">${phone || 'Not provided'}</a></td>
-                        </tr>
-                    </table>
-                    
-                    <h2 style="color: #063f84; border-bottom: 2px solid #063f84; padding-bottom: 10px; margin-top: 30px;">Message</h2>
-                    <div style="background: white; padding: 20px; border-radius: 5px; border-left: 4px solid #063f84;">
-                        <p style="color: #555; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
+        // Email content
+        const mailOptions = {
+            from: `"Crown Nova Contact Form" <${smtpUser}>`,
+            to: contactEmail,
+            cc: 'info@crownnovatech.com, ammar@crownnovatech.com',
+            replyTo: email,
+            subject: `New Contact Form Submission from ${name}`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <div style="background: #063f84; color: white; padding: 20px; text-align: center;">
+                        <h1 style="margin: 0;">New Contact Form Submission</h1>
+                    </div>
+                    <div style="padding: 30px; background: #f9f9f9;">
+                        <h2 style="color: #063f84; border-bottom: 2px solid #063f84; padding-bottom: 10px;">Contact Details</h2>
+                        
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 10px 0; font-weight: bold; color: #333; width: 120px;">Name:</td>
+                                <td style="padding: 10px 0; color: #555;">${name}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 0; font-weight: bold; color: #333;">Email:</td>
+                                <td style="padding: 10px 0; color: #555;"><a href="mailto:${email}" style="color: #063f84;">${email}</a></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 0; font-weight: bold; color: #333;">Phone:</td>
+                                <td style="padding: 10px 0; color: #555;"><a href="tel:${phone}" style="color: #063f84;">${phone || 'Not provided'}</a></td>
+                            </tr>
+                        </table>
+                        
+                        <h2 style="color: #063f84; border-bottom: 2px solid #063f84; padding-bottom: 10px; margin-top: 30px;">Message</h2>
+                        <div style="background: white; padding: 20px; border-radius: 5px; border-left: 4px solid #063f84;">
+                            <p style="color: #555; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
+                        </div>
+                    </div>
+                    <div style="background: #333; color: #999; padding: 15px; text-align: center; font-size: 12px;">
+                        <p style="margin: 0;">This email was sent from the Crown Nova Technologies website contact form.</p>
                     </div>
                 </div>
-                <div style="background: #333; color: #999; padding: 15px; text-align: center; font-size: 12px;">
-                    <p style="margin: 0;">This email was sent from the Crown Nova Technologies website contact form.</p>
-                </div>
-            </div>
-        `,
-        text: `
+            `,
+            text: `
 New Contact Form Submission
 
 Name: ${name}
@@ -117,10 +120,9 @@ ${message}
 
 ---
 This email was sent from the Crown Nova Technologies website contact form.
-        `,
-    };
+            `,
+        };
 
-    try {
         // Send the email
         await transporter.sendMail(mailOptions);
         
@@ -147,32 +149,35 @@ This email was sent from the Crown Nova Technologies website contact form.
             `,
         };
         
-        await transporter.sendMail(autoReplyOptions);
+        // Try to send auto-reply but don't fail if it doesn't work
+        try {
+            await transporter.sendMail(autoReplyOptions);
+        } catch (autoReplyError) {
+            console.error('Auto-reply failed (non-critical):', autoReplyError.message);
+        }
         
-        return res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
-    } catch (emailError) {
-        console.error('Email sending error:', emailError.message);
-        console.error('Error code:', emailError.code);
-        console.error('Full error:', JSON.stringify(emailError, null, 2));
+        return res.status(200).json({ 
+            success: true, 
+            message: 'Your message has been sent successfully!' 
+        });
+
+    } catch (error) {
+        console.error('Contact form error:', error.message);
+        console.error('Error stack:', error.stack);
         
         // Provide more specific error messages
         let errorMessage = 'Failed to send email. Please try again or contact us directly at support@crownnovatech.com';
-        if (emailError.code === 'EAUTH') {
+        
+        if (error.code === 'EAUTH') {
             errorMessage = 'Email service authentication issue. Please contact us directly at support@crownnovatech.com';
-        } else if (emailError.code === 'ECONNECTION' || emailError.code === 'ENOTFOUND') {
+        } else if (error.code === 'ECONNECTION' || error.code === 'ENOTFOUND') {
             errorMessage = 'Could not connect to email server. Please try again or contact us at support@crownnovatech.com';
-        } else if (emailError.code === 'ETIMEDOUT') {
+        } else if (error.code === 'ETIMEDOUT') {
             errorMessage = 'Connection timed out. Please try again later.';
-        } else if (emailError.responseCode >= 500) {
+        } else if (error.responseCode && error.responseCode >= 500) {
             errorMessage = 'Email server error. Please try again later or contact us directly.';
         }
         
         return res.status(500).json({ error: errorMessage });
     }
-    } catch (outerError) {
-        console.error('Unexpected error:', outerError);
-        return res.status(500).json({ 
-            error: 'An unexpected error occurred. Please contact us directly at support@crownnovatech.com' 
-        });
-    }
-}
+};

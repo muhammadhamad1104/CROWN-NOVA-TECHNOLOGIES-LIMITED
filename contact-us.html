@@ -706,15 +706,29 @@
             }
             
             try {
-                const response = await fetch('/api/contact', {
+                const apiUrl = window.location.origin + '/api/contact';
+                console.log('Sending request to:', apiUrl);
+                
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
                     },
                     body: JSON.stringify(formData)
                 });
                 
-                const result = await response.json();
+                console.log('Response status:', response.status);
+                
+                let result;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    result = await response.json();
+                } else {
+                    const text = await response.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned an invalid response. Please try again.');
+                }
                 
                 if (response.ok) {
                     // Show success popup and redirect
@@ -725,8 +739,20 @@
                     showPopup('error', 'Oops!', result.error || 'Something went wrong. Please try again or contact us directly.');
                 }
             } catch (error) {
-                console.error('Error:', error);
-                showPopup('error', 'Connection Error', 'Unable to send message. Please check your internet connection or contact us directly at support@crownnovatech.com');
+                console.error('Fetch Error:', error);
+                console.error('Error name:', error.name);
+                console.error('Error message:', error.message);
+                
+                let errorMsg = 'Unable to send message. ';
+                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                    errorMsg += 'The server is not responding. Please try again later or contact us directly at support@crownnovatech.com';
+                } else if (error.message) {
+                    errorMsg += error.message;
+                } else {
+                    errorMsg += 'Please check your internet connection or contact us directly at support@crownnovatech.com';
+                }
+                
+                showPopup('error', 'Connection Error', errorMsg);
             } finally {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
