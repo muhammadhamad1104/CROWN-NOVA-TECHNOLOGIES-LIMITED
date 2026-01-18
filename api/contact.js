@@ -1,33 +1,74 @@
 const nodemailer = require('nodemailer');
 
 export default async function handler(req, res) {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle preflight request
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { name, email, phone, message } = req.body;
+    try {
+        const { name, email, phone, message } = req.body || {};
 
-    // Validate required fields
-    if (!name || !email || !message) {
-        return res.status(400).json({ error: 'Please fill in all required fields' });
-    }
+        // Validate required fields
+        if (!name || !email || !message) {
+            return res.status(400).json({ error: 'Please fill in all required fields (Name, Email, and Message)' });
+        }
 
-    // Create Nodemailer transporter with Migadu SMTP
-    const transporter = nodemailer.createTransport({
-        host: process.env.MIGADU_SMTP_HOST,
-        port: parseInt(process.env.MIGADU_SMTP_PORT),
-        secure: false, // true for 465, false for 587
-        auth: {
-            user: process.env.MIGADU_SMTP_USER,
-            pass: process.env.MIGADU_SMTP_PASSWORD,
-        },
-    });
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: 'Please enter a valid email address' });
+        }
+
+        // Check if environment variables are configured
+        const smtpHost = process.env.MIGADU_SMTP_HOST;
+        const smtpPort = process.env.MIGADU_SMTP_PORT || '587';
+        const smtpUser = process.env.MIGADU_SMTP_USER;
+        const smtpPass = process.env.MIGADU_SMTP_PASSWORD;
+        const contactEmail = process.env.CONTACT_EMAIL || smtpUser;
+
+        if (!smtpHost || !smtpUser || !smtpPass) {
+            console.error('Missing SMTP configuration:', { 
+                hasHost: !!smtpHost, 
+                hasUser: !!smtpUser, 
+                hasPass: !!smtpPass 
+            });
+            return res.status(500).json({ 
+                error: 'Email service is not properly configured. Please contact support@crownnovatech.com directly.' 
+            });
+        }
+
+        // Create Nodemailer transporter with Migadu SMTP
+        const transporter = nodemailer.createTransport({
+            host: smtpHost,
+            port: parseInt(smtpPort),
+            secure: smtpPort === '465',
+            auth: {
+                user: smtpUser,
+                pass: smtpPass,
+            },
+            tls: {
+                rejectUnauthorized: false
+            },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 10000,
+        });
 
     // Email content
     const mailOptions = {
-        from: `"Crown Nova Contact Form" <${process.env.MIGADU_SMTP_USER}>`,
-        to: process.env.CONTACT_EMAIL,
+        from: `"Crown Nova Contact Form" <${smtpUser}>`,
+        to: contactEmail,
         cc: 'info@crownnovatech.com, ammar@crownnovatech.com',
         replyTo: email,
         subject: `New Contact Form Submission from ${name}`,
@@ -85,7 +126,7 @@ This email was sent from the Crown Nova Technologies website contact form.
         
         // Send auto-reply to the customer
         const autoReplyOptions = {
-            from: `"Crown Nova Technologies" <${process.env.MIGADU_SMTP_USER}>`,
+            from: `"Crown Nova Technologies" <${smtpUser}>`,
             to: email,
             subject: 'Thank you for contacting Crown Nova Technologies',
             html: `
@@ -108,9 +149,30 @@ This email was sent from the Crown Nova Technologies website contact form.
         
         await transporter.sendMail(autoReplyOptions);
         
-        return res.status(200).json({ success: true, message: 'Email sent successfully' });
-    } catch (error) {
-        console.error('Email error:', error);
-        return res.status(500).json({ error: 'Failed to send email. Please try again later.' });
+        return res.status(200).json({ success: true, message: 'Your message has been sent successfully!' });
+    } catch (emailError) {
+        console.error('Email sending error:', emailError.message);
+        console.error('Error code:', emailError.code);
+        console.error('Full error:', JSON.stringify(emailError, null, 2));
+        
+        // Provide more specific error messages
+        let errorMessage = 'Failed to send email. Please try again or contact us directly at support@crownnovatech.com';
+        if (emailError.code === 'EAUTH') {
+            errorMessage = 'Email service authentication issue. Please contact us directly at support@crownnovatech.com';
+        } else if (emailError.code === 'ECONNECTION' || emailError.code === 'ENOTFOUND') {
+            errorMessage = 'Could not connect to email server. Please try again or contact us at support@crownnovatech.com';
+        } else if (emailError.code === 'ETIMEDOUT') {
+            errorMessage = 'Connection timed out. Please try again later.';
+        } else if (emailError.responseCode >= 500) {
+            errorMessage = 'Email server error. Please try again later or contact us directly.';
+        }
+        
+        return res.status(500).json({ error: errorMessage });
+    }
+    } catch (outerError) {
+        console.error('Unexpected error:', outerError);
+        return res.status(500).json({ 
+            error: 'An unexpected error occurred. Please contact us directly at support@crownnovatech.com' 
+        });
     }
 }
