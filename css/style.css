@@ -158,7 +158,7 @@
 
 @media only screen and (max-width: 56.25em) {
     .h-yazi-margin-5 {
-        margin-top: -20rem;
+        margin-top: 2rem;
     }
 }
 
@@ -269,7 +269,7 @@
 
 @media only screen and (max-width: 56.25em) {
     .h-yazi-margin-5 {
-        margin-top: -15rem;
+        margin-top: 2rem;
         text-align: center;
     }
 }
@@ -487,14 +487,8 @@ body {
 
 @media only screen and (max-width: 56.25em) {
     .hakkimizda-bolumu-anasayfa {
-        padding: 99rem 0 1rem;
-        margin-top: -23rem;
-    }
-}
-
-@media only screen and (max-width: 56.25em) {
-    .hakkimizda-bolumu-anasayfa {
-        padding: 3rem 0 14rem;
+        padding: 3rem 1rem 3rem;
+        margin-top: 0;
     }
 }
 
@@ -506,15 +500,8 @@ body {
 
 @media only screen and (max-width: 56.25em) {
     .quality-bolumu-anasayfa {
-        padding: 99rem 0 1rem;
-        margin-top: -50rem;
-    }
-}
-
-@media only screen and (max-width: 56.25em) {
-    .quality-bolumu-anasayfa {
-        padding: 0rem 0 44rem;
-        margin-top: -24rem;
+        padding: 2rem 1rem 4rem;
+        margin-top: 0;
     }
 }
 
@@ -526,15 +513,8 @@ body {
 
 @media only screen and (max-width: 56.25em) {
     .team-section {
-        padding: 99rem 0 1rem;
-        margin-top: -50rem;
-    }
-}
-
-@media only screen and (max-width: 56.25em) {
-    .team-section {
-        padding: 0rem 0 18rem;
-        margin-top: -24rem;
+        padding: 2rem 1rem 4rem;
+        margin-top: 0;
     }
 }
 
@@ -545,15 +525,8 @@ body {
 
 @media only screen and (max-width: 56.25em) {
     .hakkimizda-bolumu-hakkimizda {
-        padding: 0rem 0;
-        margin-top: -55rem;
-    }
-}
-
-@media only screen and (max-width: 56.25em) {
-    .hakkimizda-bolumu-hakkimizda {
-        padding: 0rem 0;
-        margin-top: -75rem;
+        padding: 2rem 1rem;
+        margin-top: 0;
     }
 }
 
@@ -621,8 +594,8 @@ body {
 
 @media only screen and (max-width: 56.25em) {
     .hizmetler-alani {
-        padding: 10rem 0 17rem;
-        margin-top: -20rem;
+        padding: 3rem 0 3rem;
+        margin-top: 0;
     }
 }
 
@@ -6856,14 +6829,14 @@ button.swiper-pagination-bullet {
 
 @media only screen and (max-width: 56.25em) {
     .tablo:not(:last-child) {
-        margin-bottom: 6rem;
-        margin-top: -16rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
     }
 }
 
 @media only screen and (max-width: 56.25em) {
     .tablo {
-        padding: 20rem 5rem;
+        padding: 2rem 1rem;
     }
 }
 
@@ -6933,14 +6906,14 @@ button.swiper-pagination-bullet {
 
 @media only screen and (max-width: 56.25em) {
     .tabloozellik:not(:last-child) {
-        margin-bottom: 6rem;
-        margin-top: -16rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
     }
 }
 
 @media only screen and (max-width: 56.25em) {
     .tabloozellik {
-        padding: 20rem 5rem;
+        padding: 2rem 1rem;
     }
 }
 
@@ -7006,14 +6979,14 @@ button.swiper-pagination-bullet {
 
 @media only screen and (max-width: 56.25em) {
     .tablohakkimizda:not(:last-child) {
-        margin-bottom: -33rem;
-        margin-top: -16rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
     }
 }
 
 @media only screen and (max-width: 56.25em) {
     .tablohakkimizda {
-        padding: 20rem 5rem;
+        padding: 2rem 1rem;
     }
 }
 
@@ -7393,14 +7366,14 @@ button.swiper-pagination-bullet {
 
 @media only screen and (max-width: 56.25em) {
     .tabloservices:not(:last-child) {
-        margin-bottom: -33rem;
-        margin-top: -16rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
     }
 }
 
 @media only screen and (max-width: 56.25em) {
     .tabloservices {
-        padding: 20rem 5rem;
+        padding: 2rem 1rem;
     }
 }
 
@@ -19748,6 +19721,130 @@ p.listtext {
     
     .footer .footer-menu li a {
         font-size: 10px;
+    }
+}
+
+/* ============================================
+   MOBILE VISIBILITY FIXES
+   Ensures all content is visible on mobile devices
+   ============================================ */
+
+@media only screen and (max-width: 991px) {
+    /* Ensure WOW animated elements are visible even without animation */
+    .wow {
+        visibility: visible !important;
+        opacity: 1 !important;
+        animation: none !important;
+    }
+    
+    .wow.fade {
+        opacity: 1 !important;
+    }
+    
+    /* Fix service boxes visibility */
+    .paketler2 {
+        height: auto;
+        min-height: 25rem;
+    }
+    
+    .paketler2__on {
+        position: relative;
+        height: auto;
+        min-height: 25rem;
+    }
+    
+    .paketler2__gorsel {
+        height: auto;
+        min-height: 20rem;
+    }
+    
+    /* Fix hidden sections */
+    .alan, .alanb {
+        display: block !important;
+        margin-top: 0;
+    }
+    
+    /* Ensure all images are visible */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Fix text visibility */
+    .baslik-3-service,
+    .baslik-3white,
+    .baslik-3s,
+    .services-kutu2--yazi,
+    .paragraf,
+    .paragraf-info,
+    .listtext {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Fix icon visibility */
+    .iconk, .icon, .iconw, .iconleft {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Fix dep boxes */
+    .dep {
+        margin-bottom: 1.5rem;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Ensure gallery images are visible */
+    .galeri, .galeri1 {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Fix tab content */
+    .season_content {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Fix bosluk3rh extreme negative margin */
+    .bosluk3rh {
+        margin-top: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /* Additional fixes for smaller screens */
+    .tablo--1-ve-2,
+    .tablo--1-ve-3,
+    .tablo--1-ve-4 {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 2rem;
+    }
+    
+    /* Fix container padding */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    /* Ensure rows don't have negative margins that hide content */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Fix service cards flip effect on touch devices */
+    .paketler2:hover .paketler2__on--onyazi,
+    .paketler2:hover .paketler2__on--arkayazi {
+        transform: none;
+    }
+    
+    .paketler2__on--arkayazi {
+        transform: none;
+        position: relative;
+        display: none;
     }
 }
 

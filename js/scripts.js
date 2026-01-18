@@ -82,12 +82,12 @@
     });
 
 
-    // WOW ANIMATION - Optimized with higher offset and mobile disabled
+    // WOW ANIMATION - Enabled for mobile visibility
     var wow = new WOW({
         animateClass: 'animated',
-        offset: 100,
-        mobile: false,
-        live: false
+        offset: 50,
+        mobile: true,
+        live: true
     });
     wow.init();
 

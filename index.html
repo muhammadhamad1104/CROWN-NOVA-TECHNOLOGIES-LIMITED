@@ -38,10 +38,14 @@
             transform: translateZ(0);
         }
         
-        /* Disable heavy animations on initial load */
+        /* Ensure WOW elements are visible - critical for mobile */
         .wow {
             visibility: visible !important;
             animation-delay: 0s !important;
+        }
+        
+        .wow.fade {
+            opacity: 1 !important;
         }
         
         /* Learn More button spacing */
